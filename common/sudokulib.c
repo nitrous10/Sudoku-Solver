@@ -26,7 +26,7 @@ typedef struct puzzle {
  * puzzle_new - Creates a new sudoku puzzle and initializes each cell to 0
  */
 puzzle_t *puzzle_new() {
-    puzzle_t *puzzle = count_malloc(sizeof(puzzle_t));
+    puzzle_t *puzzle = malloc(sizeof(puzzle_t));
 
     if (puzzle == NULL) {
         return NULL;
