@@ -28,6 +28,22 @@ typedef struct puzzle puzzle_t;  // opaque to users of the module
  */
 puzzle_t *puzzle_new();
 
+/**************** puzzle_copy ****************/
+/* Copies each value of an existing puzzle into a new puzzle
+ * 
+ * 
+ * 
+ */
+puzzle_t *puzzle_copy(puzzle_t *puzzle);
+
+/**************** puzzle_lookup ****************/
+/* Returns the number in the specified row and column for the specified puzzle
+ * 
+ * 
+ * 
+ */
+int puzzle_lookup(puzzle_t *puzzle, int row, int col);
+
 /**************** puzzle_delete ****************/
 /* Frees memory of the puzzle
  * 
@@ -82,6 +98,6 @@ bool compare_puzzles(puzzle_t *p1, puzzle_t *p2);
  * 
  * 
  */
-bool isValidInput(int array[size][size], int row, int col, int insertNum);
+bool isValidInput(puzzle_t *puzzle, int row, int col, int insertNum);
 
 #endif // __PUZZLE_H
