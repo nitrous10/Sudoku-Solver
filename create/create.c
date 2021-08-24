@@ -101,7 +101,7 @@ int num_empty_cells(puzzle_t *puzzle){
     return count;
 }
 
-
+#ifdef UNIT_TEST2
 int main(int argc, char const *argv[])
 {
     puzzle_t *puzzle = create();
@@ -121,3 +121,4 @@ int main(int argc, char const *argv[])
     }
     return 0;
 }
+#endif
