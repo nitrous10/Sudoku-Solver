@@ -7,8 +7,10 @@
 
 #include <stdlib.h>
 #include <stdbool.h>
-#include "../common/sudokulib.h"
-#include "../solver/solver.h"
+#include <time.h>
+#include "create.h"
+
+
 
 typedef struct puzzle {
     int array[size][size];
@@ -30,9 +32,11 @@ typedef struct puzzle {
 
 puzzle_t* create() {
     int array[9][9];
+    srand(time(NULL));
     puzzle_t *puzzle = puzzle_new();
     if (puzzle_solve_random(puzzle)) {
-        fprintf(stderr, "random solve completed\n");
+        puzzle_print(puzzle, stdout);
+        fprintf(stdout, "random solve completed\n");
         int num_to_remove = (rand() % 24) + 40;
         fprintf(stdout, "Cells to delete: %d\n", num_to_remove);
         int removed = 0;
@@ -57,8 +61,11 @@ puzzle_t* create() {
                     }
                 }
             }
-            if (all_cells_tried(array)) {
+            if (all_cells_tried(array) && removed >= 40) {
                 return puzzle;
+            } else if(all_cells_tried(array) && removed < 40) {
+                puzzle_delete(puzzle);
+                return create();
             }
         }
         return puzzle;
@@ -101,7 +108,7 @@ int num_empty_cells(puzzle_t *puzzle){
     return count;
 }
 
-
+#ifdef UNIT_TEST
 int main(int argc, char const *argv[])
 {
     puzzle_t *puzzle = create();
@@ -121,3 +128,4 @@ int main(int argc, char const *argv[])
     }
     return 0;
 }
+#endif
