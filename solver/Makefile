@@ -8,8 +8,8 @@
 # 
 #
 
-TESTFLAGS = -DUNIT_TEST
-CFLAGS = -Wall -pedantic -std=c11 -ggdb $(TESTFLAGS) -I../common
+#TESTFLAGS = -DUNIT_TEST1
+CFLAGS = -Wall -pedantic -std=c11 -ggdb  -I../common
 LIBS = ../common/common.a
 CC = gcc
 MAKE = make
