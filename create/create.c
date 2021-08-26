@@ -105,27 +105,27 @@ int num_empty_cells(puzzle_t *puzzle){
 }
 
 #ifdef UNIT_TEST
-int main(int argc, char const *argv[])
-{
-    puzzle_t *puzzle = create();
-    if (puzzle != NULL){
-        if (check_unique(puzzle)){
-            //puzzle_print(puzzle, stdout);
-            int num_empty = num_empty_cells(puzzle);
-            fprintf(stdout, "Number of empty cells: %d\n", num_empty);
-        }
-        else {
-            fprintf(stderr, "puzzle created is not a unique puzzle\n");
-            puzzle_delete(puzzle);
-            return 2;
-        }
-    }
-    else {
-        fprintf(stderr, "create() failed to create a puzzle\n");
-        puzzle_delete(puzzle);
-        return 1;
-    }
-    puzzle_delete(puzzle);
-    return 0;
-}
+// int main(int argc, char const *argv[])
+// {
+//     puzzle_t *puzzle = create();
+//     if (puzzle != NULL){
+//         if (check_unique(puzzle)){
+//             //puzzle_print(puzzle, stdout);
+//             int num_empty = num_empty_cells(puzzle);
+//             fprintf(stdout, "Number of empty cells: %d\n", num_empty);
+//         }
+//         else {
+//             fprintf(stderr, "puzzle created is not a unique puzzle\n");
+//             puzzle_delete(puzzle);
+//             return 2;
+//         }
+//     }
+//     else {
+//         fprintf(stderr, "create() failed to create a puzzle\n");
+//         puzzle_delete(puzzle);
+//         return 1;
+//     }
+//     puzzle_delete(puzzle);
+//     return 0;
+// }
 #endif

@@ -15,6 +15,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include "sudokulib.h"
 
 #define size 9
 
@@ -151,6 +152,11 @@ puzzle_t *puzzle_load(FILE *fp) {
     int col = 0;
     int temp = 0;
     while(fscanf(fp, "%d ", &temp) == 1) {
+        if (temp > 9 || temp < 0) {
+            fprintf(stderr, "Invalid puzzle entry\n");
+            puzzle_delete(puzzle);
+            return NULL;
+        }
         puzzle->array[row][col] = temp;
         col++;
         if (col == 9) {
@@ -161,7 +167,12 @@ puzzle_t *puzzle_load(FILE *fp) {
             break;
         }
     }
-    return puzzle;
+    if (validPuzzle(puzzle)) {
+        return puzzle;
+    }
+    fprintf(stderr, "Invalid Puzzle\n");
+    puzzle_delete(puzzle);
+    return NULL;
 }
 
 /**
@@ -213,5 +224,32 @@ bool isValidInput(puzzle_t *puzzle, int row, int col, int insertNum) {
             }
         }
     }
+    return true;
+}
+
+/**
+ * validPuzzle - checks whether a given puzzle that has just been loaded is valid
+ * params:
+ *  puzzle - the puzzle to check
+ * 
+ * 
+ */
+bool validPuzzle(puzzle_t *puzzle) {
+    puzzle_t *copy = puzzle_copy(puzzle);
+    for (int i = 0; i < 9; i++) {
+        for (int j = 0; j < 9; j++) {
+            if (copy->array[i][j] != 0) {
+                int temp = copy->array[i][j];
+                cell_delete(copy, i, j);
+                if (!isValidInput(copy, i, j, temp)) {
+                    puzzle_delete(copy);
+                    return false;
+                } else {
+                    puzzle_insert(copy, i, j, temp);
+                }
+            }
+        }
+    }
+    puzzle_delete(copy);
     return true;
 }

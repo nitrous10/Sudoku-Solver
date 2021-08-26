@@ -8,19 +8,19 @@
 # 
 #
 
-TESTFLAGS = -DUNIT_TEST
-CFLAGS = -Wall -pedantic -std=c11 -ggdb $(TESTFLAGS) -I../common
+#TESTFLAGS = -DUNIT_TEST
+CFLAGS = -Wall -pedantic -std=c11 -ggdb -I../common
 LIBS = ../common/common.a
 CC = gcc
 MAKE = make
 
-create: ../solver/solver.o create.o
-	$(CC) $(CFLAGS) ../solver/solver.o create.o $(LIBS) -o $@
+#create: ../solver/solver.o create.o
+#	$(CC) $(CFLAGS) ../solver/solver.o create.o $(LIBS) -o $@
 
-solver.o:
+create.o:
 
 .PHONY: clean
 
 clean:
-	rm -f solver
+	rm -f create
 	rm -f *.o
