@@ -17,8 +17,6 @@ typedef struct puzzle {
 } puzzle_t;
 
 
-
-
 /**
  *
  * create() - Function to create a valid puzzle
@@ -35,10 +33,7 @@ puzzle_t* create() {
     srand(time(NULL));
     puzzle_t *puzzle = puzzle_new();
     if (puzzle_solve_random(puzzle)) {
-        puzzle_print(puzzle, stdout);
-        fprintf(stdout, "random solve completed\n");
         int num_to_remove = (rand() % 24) + 40;
-        fprintf(stdout, "Cells to delete: %d\n", num_to_remove);
         int removed = 0;
         while (removed < num_to_remove) {
             clear_array(array);
@@ -71,6 +66,7 @@ puzzle_t* create() {
         return puzzle;
     }
     fprintf(stderr, "Failed to create puzzle because puzzle_solve_random returned false\n");
+    puzzle_delete(puzzle);
     return NULL;
 }
 
@@ -114,18 +110,22 @@ int main(int argc, char const *argv[])
     puzzle_t *puzzle = create();
     if (puzzle != NULL){
         if (check_unique(puzzle)){
-            puzzle_print(puzzle, stdout);
+            //puzzle_print(puzzle, stdout);
             int num_empty = num_empty_cells(puzzle);
             fprintf(stdout, "Number of empty cells: %d\n", num_empty);
         }
         else {
             fprintf(stderr, "puzzle created is not a unique puzzle\n");
+            puzzle_delete(puzzle);
+            return 2;
         }
     }
     else {
         fprintf(stderr, "create() failed to create a puzzle\n");
+        puzzle_delete(puzzle);
         return 1;
     }
+    puzzle_delete(puzzle);
     return 0;
 }
 #endif
