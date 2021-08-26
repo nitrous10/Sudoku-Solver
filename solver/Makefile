@@ -9,13 +9,13 @@
 #
 
 #TESTFLAGS = -DUNIT_TEST1
-CFLAGS = -Wall -pedantic -std=c11 -ggdb  -I../common
+CFLAGS = -Wall -pedantic -std=c11 -ggdb -I../common
 LIBS = ../common/common.a
 CC = gcc
 MAKE = make
 
-solver: solver.o
-	$(CC) $(CFLAGS) solver.o $(LIBS) -o $@
+#solver: solver.o
+#	$(CC) $(CFLAGS) solver.o $(LIBS) -o $@
 
 solver.o:
 

@@ -100,4 +100,12 @@ bool compare_puzzles(puzzle_t *p1, puzzle_t *p2);
  */
 bool isValidInput(puzzle_t *puzzle, int row, int col, int insertNum);
 
+/**************** isValidInput ****************/
+/* checks if a given puzzle is valid in its current state
+ * 
+ * 
+ * 
+ */
+bool validPuzzle(puzzle_t *puzzle);
+
 #endif // __PUZZLE_H

@@ -28,7 +28,7 @@ int main(int argc, char const *argv[]) {
     } else if (strcmp(argv[1], "solve") == 0) {
         puzzle_t *puzzle = puzzle_load(stdin);
         if (puzzle == NULL || !puzzle_solve_forwards(puzzle)) {
-            fprintf(stderr, "puzzle is unsolvable" );
+            fprintf(stderr, "puzzle is unsolvable\n" );
             exit(2);
         } 
         puzzle_solve_forwards(puzzle);
