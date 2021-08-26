@@ -17,8 +17,6 @@ MAKE = make
 #solver: solver.o
 #	$(CC) $(CFLAGS) solver.o $(LIBS) -o $@
 
-solver.o:
-
 .PHONY: clean
 
 clean:

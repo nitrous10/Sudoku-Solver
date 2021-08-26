@@ -90,6 +90,7 @@ bool puzzle_solve_random(puzzle_t *puzzle) {
                 valuesSeen[i-1] = i;
                 if (isValidInput(puzzle, row, col, i)) {
                     puzzle_insert(puzzle, row, col, i);
+                    fprintf(stdout, " ");
                     if (puzzle_solve_random(puzzle)) {
                         return true;
                     }
