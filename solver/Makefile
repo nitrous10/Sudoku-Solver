@@ -8,7 +8,7 @@
 # 
 #
 
-TESTFLAGS = -DUNIT_TEST
+TESTFLAGS = -DUNIT_TEST1
 CFLAGS = -Wall -pedantic -std=c11 -ggdb $(TESTFLAGS) -I../common
 LIBS = ../common/common.a
 CC = gcc
@@ -16,8 +16,6 @@ MAKE = make
 
 solver: solver.o
 	$(CC) $(CFLAGS) solver.o $(LIBS) -o $@
-
-solver.o:
 
 .PHONY: clean
 

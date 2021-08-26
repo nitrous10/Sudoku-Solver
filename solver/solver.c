@@ -92,6 +92,7 @@ bool puzzle_solve_random(puzzle_t *puzzle) {
                 valuesSeen[i-1] = i;
                 if (isValidInput(puzzle, row, col, i)) {
                     puzzle_insert(puzzle, row, col, i);
+                    fprintf(stdout, " ");
                     if (puzzle_solve_random(puzzle)) {
                         return true;
                     }
@@ -160,49 +161,49 @@ bool check_unique(puzzle_t *puzzle) {
     }
 }
 
-#ifdef UNIT_TEST
-// int main(int argc, char *argv[]) {
-//     puzzle_t *genericUnique = puzzle_new();
-//     puzzle_t *generic = puzzle_new();
-//     puzzle_t *genericCopy = puzzle_new();
-//     if (!puzzle_solve_forwards(generic)) {
-//         fprintf(stderr, "Solve forwards is faulty\n");
-//         return 1;
-//     }
-//     puzzle_print(generic, stdout);
+#ifdef UNIT_TEST1
+int main(int argc, char *argv[]) {
+    puzzle_t *genericUnique = puzzle_new();
+    puzzle_t *generic = puzzle_new();
+    puzzle_t *genericCopy = puzzle_new();
+    if (!puzzle_solve_forwards(generic)) {
+        fprintf(stderr, "Solve forwards is faulty\n");
+        return 1;
+    }
+    puzzle_print(generic, stdout);
 
-//     if (!puzzle_solve_backwards(genericCopy)) {
-//         fprintf(stderr, "Solve backwards is faulty\n");
-//         return 2;
-//     }
-//     puzzle_print(genericCopy, stdout);
+    if (!puzzle_solve_backwards(genericCopy)) {
+        fprintf(stderr, "Solve backwards is faulty\n");
+        return 2;
+    }
+    puzzle_print(genericCopy, stdout);
 
-//     if (check_unique(genericUnique)) {
-//         fprintf(stderr, "Check Unique on non-unique puzzle is faulty\n");
-//         return 3;
-//     } else {
-//         printf("Passed unique test\n");
-//     }
+    if (check_unique(genericUnique)) {
+        fprintf(stderr, "Check Unique on non-unique puzzle is faulty\n");
+        return 3;
+    } else {
+        printf("Passed unique test\n");
+    }
 
 
-//     FILE *fp = fopen("unique.txt", "r");
-//     puzzle_t *loadedPuzzle = puzzle_load(fp);
-//     if (loadedPuzzle == NULL) {
-//         fprintf(stderr, "Failed to load puzzle\n");
-//         return 4;
-//     }
-//     if (!check_unique(loadedPuzzle)) {
-//         fprintf(stderr, "Check Unique on unique puzzle is faulty\n");
-//         return 5;
-//     }
+    FILE *fp = fopen("unique.txt", "r");
+    puzzle_t *loadedPuzzle = puzzle_load(fp);
+    if (loadedPuzzle == NULL) {
+        fprintf(stderr, "Failed to load puzzle\n");
+        return 4;
+    }
+    if (!check_unique(loadedPuzzle)) {
+        fprintf(stderr, "Check Unique on unique puzzle is faulty\n");
+        return 5;
+    }
 
-//     puzzle_solve_forwards(loadedPuzzle);
-//     printf("Printing Solved Unique Puzzle:\n");
-//     puzzle_print(loadedPuzzle, stdout);
+    puzzle_solve_forwards(loadedPuzzle);
+    printf("Printing Solved Unique Puzzle:\n");
+    puzzle_print(loadedPuzzle, stdout);
 
-//     puzzle_delete(genericUnique);
-//     puzzle_delete(generic);
-//     puzzle_delete(genericCopy);
-//     return 0;
-// }
+    puzzle_delete(genericUnique);
+    puzzle_delete(generic);
+    puzzle_delete(genericCopy);
+    return 0;
+}
 #endif
