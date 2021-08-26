@@ -17,17 +17,16 @@ typedef struct puzzle {
 } puzzle_t;
 
 
-/**
- *
- * create() - Function to create a valid puzzle
- *  makes board
- *  calls puzzle_solve_random
- *  chooses a random number between 40 and 63 which will be the number of blanks
- *  delete that many cells with cell_delete and check_unique
- *  if we get to a point where there is no possible cell to delete, we return the puzzle as is. In final version, it should start over removing from the puzzle.
- *  returns NULL if fails to create puzzle, 
+/**************** create ****************/
+/* create() - Function to generate a valid puzzle  
+ * calls puzzle_new to make the board
+ * calls puzzle_solve_random to determine if the puzzle is solvable
+ * chooses a random number between 40 and 63 that will be the number of empty cells in the puzzle
+ * deletes that number of cells using cell_delete
+ * checks thats the puzzle still has a unique solution using check_unique
+ * if there are no more cells to delete, checked using all_cells_tried, and the number of cells removed is greater than or equal to 40 then return the puzzle
+ * if there are no more cells to delete, but the number of cells removed is less than 40, call create again
  */
-
 puzzle_t* create() {
     int array[9][9];
     srand(time(NULL));
@@ -71,8 +70,12 @@ puzzle_t* create() {
 }
 
 
-// puzzle create helper
-bool all_cells_tried(int array[9][9]){
+/**************** all_cells_tried ****************/
+/* Checks if there are no cells to remove that preserve a unique solution
+ * the array we pass will have a zero in the position corresponding to every cell we have not checked
+ * Thus, if any cell has a zero, we have not yet tried it, and our function returns false
+ * Otherwise, return true
+ */bool all_cells_tried(int array[9][9]){
     for (int i = 0; i < 9; i++){
         for (int j = 0; j < 9; j++){
             if (array[i][j] == 0) {
@@ -83,8 +86,11 @@ bool all_cells_tried(int array[9][9]){
     return true;
 }
 
-// make every value in the array 0
-void clear_array (int array[9][9]){
+/**************** clear_array ****************/
+/* go through the array storing what cells we have tried to remove, 
+ * and reset every cell to 0, (essentially saying we have not yet tried to remove any cells
+ * 
+ */void clear_array (int array[9][9]){
     for (int i = 0; i < 9; i++){
         for (int j = 0; j < 9; j++){
             array[i][j] = 0;
@@ -92,6 +98,10 @@ void clear_array (int array[9][9]){
     }
 }
 
+/**************** num_empty_cells ****************/
+/* returns the number of blank cells in a puzzle
+ * 
+ */
 int num_empty_cells(puzzle_t *puzzle){
     int count = 0;
     for (int i = 0; i < 9; i++){

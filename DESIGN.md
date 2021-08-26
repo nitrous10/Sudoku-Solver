@@ -84,14 +84,6 @@ And a helper module that provides a data structure for the puzzle:
 
 ### Pseudo code for logic/algorithmic flow
 
-`create`
-Insert numbers on the diagonal at random, repeats allowed. Insert numbers at random in each diagonal 3x3 grid, repeats not allowed. Run solve and find a solution. Remove random number of numbers between 40-60, checking after each removal if the puzzle solution is still unique. 
-
-
-`solve`
-Read in the sudoku puzzle to solve.
-Find the first occurrence of an unassigned box. If the puzzle cannot find an unassigned box and the puzzle is still valid, then the puzzle is solved. Otherwise, loop through each valid input for the unassigned block and see if that number leads to a solution (by calling solver on the new puzzle). If a valid input doesn't lead to a solution, backtrack and use the next valid number for a given box.
-
 The sudoku will run as follows:
 1. execute from a command line as shown in the User Interface
 2. parse the command line arguments, checking the arguments for either `create` or `solve`
@@ -135,6 +127,8 @@ A good implementation will not necessarily encode all the above code in a single
 
 ### Dataflow through modules
 
+The main function checks the inputs and, if valid, calls the appropriate function (create or solve). The sudoku creator creates a data structure that will house a randomly generated puzzle with a unique solutions. It will use various functions from the `common` directory to achieve this, as well as the use of random number generators. It will also utilize functions from the solver in order to produce a puzzle with a unique solution. The solver takes in a sudoku puzzle to be solved and, also using the functions in the `common` directory, finds a solution to the puzzle.
+
 The main sudoku:
 1. *main* parses the parameters and passses them to the indicated module, either create or solve
 
@@ -153,8 +147,6 @@ The solver module:
 3. *is_valid_input* checks whether a given number can be inserted into a specific coordinate by checking if it satisfies the sudoku rules, that is checking its validity in the given row, column, and 3x3 grid
 4. *puzzle_insert* inserts a number into a specified coordinate of the puzzle
 
-The main function checks the inputs and, if valid, calls the appropriate function (create or solve). The sudoku creator creates a data structure that will house a randomly generated puzzle with a unique solutions. It will use various functions from the `common` directory to achieve this, as well as the use of random number generators. It will also utilize functions from the solver in order to produce a puzzle with a unique solution. The solver takes in a sudoku puzzle to be solved and, also using the functions in the `common` directory, finds a solution to the puzzle.
-
 ### Major data structures
 
 One helper module provides a data structure:
@@ -170,8 +162,6 @@ The `sudoku` data structure will hold the matrix that represents the sudoku puzz
 In each case, check that the puzzle outputted by the creator module is the same puzzle solved by the solver module.
 
 *Fuzz testing*. A bash script for testing sudoku modules. We will create **n** random puzzles using the creator module, where **n** is a command-line argument. The script makes sure that the puzzle created has a unique solution. It then takes the output from each call to the creater and runs `./sudoku solve` to generate a solution to the puzzle that is valid following Sudoku rules.
-
-Fuzz testing: We will write a bash script that creates 10 random puzzles using the creator. The script then takes the output from each call to the creator and runs `./sudoku solve`. The script will also make sure that the puzzles created by the creator are unique.
 
 Unit Testing: testing for both creator and solver modules. Unit testing will include checking the isUnique method to ensure that a given puzzle has a unique solution. We will also hardcode unsolvable puzzles and attempt to run `./sudoku solve` on them to ensure that the solver can recognize unsolvable puzzles.
 
